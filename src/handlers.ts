@@ -22,7 +22,7 @@ async function writeMissing(
     mkdirpSync(path.dirname(handlerPath));
     fs.writeFileSync(
       handlerPath,
-      `import type { ${apiName} } from '@/types';
+      `import type { ${apiName} } from '#src/types/index.js';
 
 ${Object.keys(methods)
   .filter((f) => !['parameters'].includes(f))
@@ -33,7 +33,7 @@ ${Object.keys(methods)
   res.sendStatus(501);
 };
 `,
-  )}`,
+  ).join('\n')}`,
     );
   }
 }
