@@ -40,8 +40,11 @@ export default function (plop: NodePlopAPI) {
     description: 'Generate an API service',
     prompts: [
       process.env.NO_DIR_WARNING ? undefined : Prompts.dirWarning,
-      Prompts.email, Prompts.fullname, Prompts.org,
-      Prompts.name, Prompts.desc,
+      Prompts.email,
+      Prompts.fullname,
+      Prompts.org,
+      Prompts.name,
+      Prompts.desc,
       Prompts.features,
       Prompts.dbName,
     ].filter((p) => !!p) as PromptQuestion[],
@@ -54,9 +57,7 @@ export default function (plop: NodePlopAPI) {
           stripExtensions: ['hbs'],
           globOptions: { dot: true },
           force: true,
-          templateFiles: [
-            path.resolve(__dirname, '../templates/all/**'),
-          ],
+          templateFiles: [path.resolve(__dirname, '../templates/all/**')],
           data: {
             dependencies: dependencies(data as OtiAnswers),
             devDependencies: devDependencies(data as OtiAnswers),
@@ -75,9 +76,7 @@ export default function (plop: NodePlopAPI) {
           stripExtensions: ['hbs'],
           globOptions: { dot: true },
           force: true,
-          templateFiles: [
-            path.resolve(__dirname, '../templates/db/**'),
-          ],
+          templateFiles: [path.resolve(__dirname, '../templates/db/**')],
         },
         cli('yarn set version berry'),
         cli('yarn config set nodeLinker node-modules'),
@@ -95,14 +94,18 @@ export default function (plop: NodePlopAPI) {
 Your project is ready to roll! We ran yarn for you, so your next steps are:
 * Go into the api directory and edit your API specification.
   You could use https://editor.swagger.io/ and then paste the yaml back in.
-${data?.features.includes('db') ? `* Go into migrations/sql and add your initial database up/down migration to the existing files
-* Run "make db-ci" to create the database and run the migrations.` : ''}
+${
+  data?.features.includes('db')
+    ? `* Go into migrations/sql and add your initial database up/down migration to the existing files
+* Run "make db-ci" to create the database and run the migrations.`
+    : ''
+}
 * Run "yarn test" to just make sure the environment is all sorted out.
 * Run "yarn build" to build the database interface, service types and TS code.
 * Start implementing your API by adding appropriate handler methods.
 
 Happy hacking!`,
-      ].filter(a => typeof a === 'object' || typeof a === 'string');
+      ].filter((a) => typeof a === 'object' || typeof a === 'string');
     },
   });
 }

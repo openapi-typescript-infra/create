@@ -1,10 +1,13 @@
 function sortByKey(deps: Record<string, string>) {
   return Object.keys(deps)
     .sort()
-    .reduce((obj, key) => {
-      obj.push({ name: key, spec: deps[key] });
-      return obj;
-    }, [] as { name: string; spec: string }[]);
+    .reduce(
+      (obj, key) => {
+        obj.push({ name: key, spec: deps[key] });
+        return obj;
+      },
+      [] as { name: string; spec: string }[],
+    );
 }
 
 export function dependencies({ features }: { features: string[] }) {

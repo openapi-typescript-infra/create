@@ -13,8 +13,9 @@ import { useCliAction } from './actions.js';
 
 async function writeMissing(
   api: string,
-  methods: Record<string, Record<string, { operationId: string; }>>,
-  apiName: string) {
+  methods: Record<string, Record<string, { operationId: string }>>,
+  apiName: string,
+) {
   const handlerPath = path.join('src', 'handlers', `${api}.ts`);
   const exists = fs.existsSync(handlerPath);
   if (!exists) {
@@ -33,7 +34,8 @@ ${Object.keys(methods)
   res.sendStatus(501);
 };
 `,
-  ).join('\n')}`,
+  )
+  .join('\n')}`,
     );
   }
 }

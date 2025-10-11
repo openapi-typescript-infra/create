@@ -37,12 +37,12 @@ export const Prompts: Record<string, PromptQuestion> = {
   dirWarning: {
     type: 'confirm',
     name: 'dirWarning',
-    message: `This will create files in the current directory (${process.cwd()}). Continue?`
+    message: `This will create files in the current directory (${process.cwd()}). Continue?`,
   },
   handlerWarning: {
     type: 'confirm',
     name: 'handlerWarning',
-    message: `This will create missing handlers for the project in (${process.cwd()}). Continue?`
+    message: `This will create missing handlers for the project in (${process.cwd()}). Continue?`,
   },
   email: {
     type: 'input',
