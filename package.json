@@ -15,6 +15,10 @@
   "config": {
     "coconfig": "@openapi-typescript-infra/coconfig"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openapi-typescript-infra/create.git"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "test": "echo \"TODO: write tests\" && exit 0",
