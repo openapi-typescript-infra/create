@@ -2,7 +2,7 @@ import path from 'node:path';
 
 import Configstore from 'configstore';
 import parseGitConfig from 'parse-git-config';
-import type { PromptQuestion } from 'node-plop';
+import type { NodePlopAPI, PromptQuestion } from 'node-plop';
 
 const config = new Configstore('@openapi-typescript-infra/create');
 
@@ -33,16 +33,16 @@ function removeType(name: string) {
   return parts.join('-');
 }
 
-export const Prompts: Record<string, PromptQuestion> = {
+export const getPrompts = (plop: NodePlopAPI): Record<string, PromptQuestion> => ({
   dirWarning: {
     type: 'confirm',
     name: 'dirWarning',
-    message: `This will create files in the current directory (${process.cwd()}). Continue?`,
+    message: `This will create files in the current directory (${plop.getDestBasePath()}). Continue?`,
   },
   handlerWarning: {
     type: 'confirm',
     name: 'handlerWarning',
-    message: `This will create missing handlers for the project in (${process.cwd()}). Continue?`,
+    message: `This will create missing handlers for the project in (${plop.getDestBasePath()}). Continue?`,
   },
   email: {
     type: 'input',
@@ -69,7 +69,7 @@ export const Prompts: Record<string, PromptQuestion> = {
     type: 'input',
     name: 'name',
     message: 'What is the name of the service?',
-    default: path.basename(process.cwd()),
+    default: path.basename(plop.getDestBasePath()),
   },
   desc: {
     type: 'input',
@@ -99,4 +99,4 @@ export const Prompts: Record<string, PromptQuestion> = {
     },
     default: (answers: OtiAnswers) => removeType(answers.name).replace('-', '_'),
   },
-};
+});

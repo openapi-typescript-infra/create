@@ -8,7 +8,7 @@ import OpenAPIParser from '@readme/openapi-parser';
 import type { HelperDelegate } from 'handlebars';
 import type { NodePlopAPI } from 'plop';
 
-import { Prompts } from './prompts.js';
+import { getPrompts } from './prompts.js';
 import { useCliAction } from './actions.js';
 
 async function writeMissing(
@@ -51,6 +51,7 @@ export default function (plop: NodePlopAPI) {
   plop.setHelper('ternary', ((test, yes, no) => (test ? yes : no)) as HelperDelegate);
   useCliAction(plop);
 
+  const Prompts = getPrompts(plop);
   // controller generator
   plop.setGenerator('handlers', {
     description: 'Generate missing API handlers',

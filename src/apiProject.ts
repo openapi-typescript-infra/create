@@ -6,7 +6,7 @@ import type { HelperDelegate } from 'handlebars';
 import type { NodePlopAPI } from 'plop';
 import type { PromptQuestion } from 'node-plop';
 
-import { Prompts } from './prompts.js';
+import { getPrompts } from './prompts.js';
 import type { OtiAnswers } from './prompts.js';
 import { dependencies, devDependencies } from './dependencies.js';
 import { useCliAction } from './actions.js';
@@ -35,6 +35,7 @@ export default function (plop: NodePlopAPI) {
   plop.setHelper('ternary', ((test, yes, no) => (test ? yes : no)) as HelperDelegate);
   useCliAction(plop);
 
+  const Prompts = getPrompts(plop);
   // controller generator
   plop.setGenerator('api', {
     description: 'Generate an API service',
@@ -86,7 +87,7 @@ export default function (plop: NodePlopAPI) {
         data?.features.includes('db') && cli('yarn migration:create initial-schema'),
         {
           type: 'gitInit',
-          path: process.cwd(),
+          path: plop.getDestBasePath(),
           // By default is false, but if "true" will log the output of commands
           verbose: true,
         },
